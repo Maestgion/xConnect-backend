@@ -4,30 +4,13 @@ require("../db/conn")
 dotenv.config({ path: "./config/config.env"})
 const app = express()
 const PORT = process.env.PORT 
-
+const router = require("../router/route")
 const User = require("../model/userSchema")
 
+app.use(express.json())
+app.use(router)
 
-const middleware = (req, res, next) =>{
-console.log("middleware")
-next()
-}
 
-app.get("/", (req, res)=>{
-    res.send("Hello from the server")
-})
-app.get("/about", middleware, (req, res)=>{
-    res.send("Hello from the about")
-})
-app.get("/contact", (req, res)=>{
-    res.send("Hello from the contact")
-})
-app.get("/signup", (req, res)=>{
-    res.send("Hello from the registration")
-})
-app.get("/signin", (req, res)=>{
-    res.send("Hello from the sign in")
-})
 
 
 
