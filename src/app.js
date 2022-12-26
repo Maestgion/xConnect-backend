@@ -1,11 +1,19 @@
 const express = require("express")
+require("../db/conn")
 const app = express()
 const port = 8000
+
+
+
+const middleware = (req, res, next) =>{
+console.log("middleware")
+next()
+}
 
 app.get("/", (req, res)=>{
     res.send("Hello from the server")
 })
-app.get("/about", (req, res)=>{
+app.get("/about", middleware, (req, res)=>{
     res.send("Hello from the about")
 })
 app.get("/contact", (req, res)=>{
