@@ -1,8 +1,29 @@
 {
+ 
+  "name": "write-to-me-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maestgion/write-to-me-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Maestgion/write-to-me-backend/issues"
+  },
   "dependencies": {
     "bcrypt": "^5.1.0",
     "express": "^4.18.2",
     "mongoose": "^6.8.1",
     "validator": "^13.7.0"
-  }
+  },
+  "homepage": "https://github.com/Maestgion/write-to-me-backend#readme",
+  "description": ""
+
 }
