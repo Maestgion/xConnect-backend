@@ -1,7 +1,9 @@
 const express = require("express")
+const dotenv = require("dotenv")
 require("../db/conn")
+dotenv.config({ path: "./config/config.env"})
 const app = express()
-const port = 8000
+const PORT = process.env.PORT 
 
 
 
@@ -28,6 +30,6 @@ app.get("/signin", (req, res)=>{
 
 
 
-app.listen(port, ()=>{
-console.log(`listening to the port ${port}`)
+app.listen(PORT, ()=>{
+console.log(`listening to the PORT ${PORT}`)
 })

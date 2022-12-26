@@ -1,11 +1,15 @@
 const mongoose = require("mongoose")
+const dotenv = require("dotenv")
+
+
+dotenv.config({ path: "./config/config.env"})
+
 
 mongoose.set("strictQuery", false)
 
+const DB = process.env.DATABASE
 
-const db = "mongodb+srv://7abhishek1410:I7yyKZRYblXdWR2h@cluster0.rbdq7wl.mongodb.net/userData?retryWrites=true&w=majority"
-
-mongoose.connect(db, ()=>{
+mongoose.connect(DB, ()=>{
     console.log("connected")
 }, (e)=>{
     console.error(e)
