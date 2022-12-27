@@ -102,6 +102,12 @@ router.post("/login", async (req, res)=>{
 
         const token = await userExists.generateAuthToken()
         console.log(token)
+
+        res.cookie("tokens", token, {
+            expires: new Date(Date.now() +  2592000000),
+            httpOnly:true
+            // expires in 30 days
+        })
     }
     else{
         res.status(400).json({error:"account not found"})
