@@ -99,6 +99,9 @@ router.post("/login", async (req, res)=>{
         else{
             res.status(400).json({error: "invalid credentials"})
         }
+
+        const token = await userExists.generateAuthToken()
+        console.log(token)
     }
     else{
         res.status(400).json({error:"account not found"})
