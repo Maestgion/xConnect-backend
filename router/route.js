@@ -1,6 +1,6 @@
 const express = require("express")
 const router = new express.Router()
-
+const bcrypt = require("bcryptjs")
 const User = require("../model/userSchema")
 
 
@@ -49,7 +49,11 @@ router.post("/register", async (req, res)=>{
 
     if(userExists)
     {
-        res.status(422).json({error: "user already exists"})
+        return res.status(422).json({error: "user already exists"})
+    }
+    else if(password!=cnfPassword)
+    {
+        return res.status(422).json({error: "Please type the same password"})
     }
     else
     {
@@ -87,7 +91,7 @@ router.post("/login", async (req, res)=>{
 
     if(userExists)
     {
-        const passwordMatch = await User.findOne({password:password})
+        const passwordMatch = await bcrypt.compare(password, userExists.password)
         if(passwordMatch) 
         {
             res.status(201).json({message: "login successful"})
