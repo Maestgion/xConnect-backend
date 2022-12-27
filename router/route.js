@@ -71,6 +71,39 @@ router.post("/register", async (req, res)=>{
     
 })
 
+router.post("/login", async (req, res)=>{
+
+    const {email, password} = req.body
+
+    if(!email || !password)
+    {
+        res.status(422).json({error: "These fields can't be empty"})
+
+    }
+
+   try
+   {
+    const userExists = await User.findOne({email:email})
+
+    if(userExists)
+    {
+        const passwordMatch = await User.findOne({password:password})
+        if(passwordMatch) 
+        {
+            res.status(201).json({message: "login successful"})
+        } 
+        else{
+            res.status(400).json({error: "invalid credentials"})
+        }
+    }
+    else{
+        res.status(400).json({error:"account not found"})
+    }
+   }catch(e){
+        console.log(e);
+   }
+})
+
 
 
 
