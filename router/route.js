@@ -81,8 +81,8 @@ router.post("/login", async (req, res)=>{
 
     if(!email || !password)
     {
-        res.status(422).json({error: "These fields can't be empty"})
-
+        res.status(400).json({error: "These fields can't be empty"})
+        console.log("get out")
     }
 
    try
@@ -93,21 +93,24 @@ router.post("/login", async (req, res)=>{
     {
         const passwordMatch = await bcrypt.compare(password, userExists.password)
         if(passwordMatch) 
-        {
+        {   
+             const token = await userExists.generateAuthToken()
+            console.log(token)
+            res.cookie("jwtoken", token, {
+                expires: new Date(Date.now() +  2592000000),
+                httpOnly:true
+                // expires in 30 days
+            })
+            
             res.status(201).json({message: "login successful"})
+            console.log(userExists)
+           
         } 
         else{
             res.status(400).json({error: "invalid credentials"})
         }
 
-        const token = await userExists.generateAuthToken()
-        console.log(token)
-
-        res.cookie("tokens", token, {
-            expires: new Date(Date.now() +  2592000000),
-            httpOnly:true
-            // expires in 30 days
-        })
+     
     }
     else{
         res.status(400).json({error:"account not found"})
