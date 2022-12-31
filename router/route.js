@@ -2,6 +2,7 @@ const express = require("express")
 const router = new express.Router()
 const bcrypt = require("bcryptjs")
 const User = require("../model/userSchema")
+const authenticate = require("../middleware/authenticate")
 
 
 // const middleware = (req, res, next) =>{
@@ -119,6 +120,13 @@ router.post("/login", async (req, res)=>{
         console.log(e);
    }
 })
+
+router.get("/about", authenticate, (req, res)=>{
+        res.send(req.rootUser)
+        console.log(req.rootUser)
+})
+
+
 
 
 

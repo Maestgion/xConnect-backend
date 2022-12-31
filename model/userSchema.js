@@ -58,7 +58,7 @@ userSchema.pre('save', async function(next){
         this.cnfPassword = await  bcrypt.hash(this.cnfPassword, 10)
     }
     next()
-})
+}) 
 
 userSchema.methods.generateAuthToken = async function() {
     try{
