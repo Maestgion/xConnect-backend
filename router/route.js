@@ -130,6 +130,35 @@ router.get("/getdata", authenticate, (req, res)=>{
     res.send(req.rootUser)
 })
 
+router.post("/contact", authenticate, async (req, res)=>{
+
+    try
+    {
+        const {name, email, phone, message} = req.body;
+        
+        if(!name || !phone || !email ||!message)
+        {
+            res.status(422).send("These fields can't be empty")
+        }
+
+        const userExists = await User.findOne({_id:req.userID})
+
+        if(userExists)
+        {
+            const userMessage = await userExists.addMessage(name, email, phone, message)
+            console.log(userMessage)
+
+            await userExists.save()
+
+            res.status(201).json({message:"message received"})
+        }
+    } catch(e)
+    {
+        console.log(e);
+    }
+
+
+} )
 
 
 
