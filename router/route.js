@@ -160,6 +160,12 @@ router.post("/contact", authenticate, async (req, res)=>{
 
 } )
 
+router.get("/logout", authenticate, (req,res)=>{
+    res.clearCookie("jwtoken", {path:"/"}).status(200).json({message:"User logged out successfully"})
+    console.log("logged out");
+
+})
+
 
 
 
